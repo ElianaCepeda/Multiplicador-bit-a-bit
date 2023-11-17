@@ -1,5 +1,6 @@
 # Multiplicador-bit-a-bit
-Se genera un codigo que hace una multiplicación bit a bit en una modificación de del procesador PDUA
+Se genera un codigo que hace una multiplicación bit a bit en una modificación de del procesador PDUA para la clase de Arquitectura del computador de la universidad Javeriana.
+
 ## Set de instrucciones
 
 ```yaml
