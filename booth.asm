@@ -1,4 +1,5 @@
-	; Evalúa sí Acc es cero
+inicio:
+; Evalúa sí Acc es cero
 	jz load_a
 ind_1:
 	; Se carga la variable Q a registro A
