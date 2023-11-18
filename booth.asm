@@ -93,7 +93,7 @@ addf:
 	add ACC, A
 	mov [DPTR], ACC
 	ret
-andf:
+fand:
 	jmp load_Q_1
 	lsh ACC, 0X7
 	mov A, ACC
@@ -117,7 +117,7 @@ AritSh:
 	mov ACC, 0b1000
 	and ACC, A
 	jz addf
-	jmp andf
+	jmp fand
 
 	jmp act_Q_0	;Q0 queda guardado en q1
 
