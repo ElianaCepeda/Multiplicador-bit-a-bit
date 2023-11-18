@@ -78,7 +78,7 @@ fnd_Q_1_0:
 	jmp AritSh
 A+M:
 	jmp load_M
-	mov A,ACC
+	mov A, ACC
 	jmp load_A
 	add ACC,A	
 	mov [DPTR], ACC	;A=A+M
@@ -86,32 +86,32 @@ A+M:
 A-M:
 	jmp load_M
 	inv ACC
-	mov A,ACC
+	mov A, ACC
 	mov ACC, 0b0001
-	add ACC,A	;C2 de M en Acc
-	mov A,ACC	;C2 de M en registro A
+	add ACC, A	;C2 de M en Acc
+	mov A, ACC	;C2 de M en registro A
 	jmp load_A
-	add ACC,A	
+	add ACC, A	
 	mov [DPTR], ACC	;A=A-M
 	jmp AritSh
 AritSh:
 	jmp act_A_0
-	mov A,ACC
+	mov A, ACC
 	jmp load_A
 	rsh ACC, 0b0001
-	and ACC,A
+	and ACC, A
 	mov [DPTR], ACC	;Arithmetic Right Shift de A queda guardado en A
 	jmp act_Q_0
-	mov A,ACC
+	mov A, ACC
 	jmp load_Q_1
-	mov ACC,A
+	mov ACC, A
 	mov [DPTR], ACC	;Queda cargado Q0 en Q-1
 	jmp load_A_0
 	lsh ACC, 0x3
-	mov A,ACC
+	mov A, ACC
 	jmp load_Q
 	rsh ACC,0b0001	;se hace el logical rigth shift de Q
-	and ACC,A	;A Q se le pone como bit mas significativo A0
+	and ACC, A	;A Q se le pone como bit mas significativo A0
 	mov [DPTR], ACC	;Q tiene guardado el nuevo Q con el right shift modificado
 	jmp inicio	
 fin: 
