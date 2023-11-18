@@ -22,7 +22,7 @@ load_M:
 	mov ACC, [DPTR]
 	ret
 load_A:
-	mov ACC,varaibleA 
+	mov ACC, variableA 
 	mov DPTR, ACC
 	mov ACC, [DPTR]
 	ret
