@@ -80,7 +80,7 @@ A+M:
 	jmp load_M
 	mov A, ACC
 	jmp load_A
-	add ACC,A	
+	add ACC, A	
 	mov [DPTR], ACC	;A=A+M
 	jmp AritSh
 A-M:
@@ -110,7 +110,7 @@ AritSh:
 	lsh ACC, 0x3
 	mov A, ACC
 	jmp load_Q
-	rsh ACC,0b0001	;se hace el logical rigth shift de Q
+	rsh ACC, 0b0001	;se hace el logical rigth shift de Q
 	and ACC, A	;A Q se le pone como bit mas significativo A0
 	mov [DPTR], ACC	;Q tiene guardado el nuevo Q con el right shift modificado
 	jmp inicio	
