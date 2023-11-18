@@ -57,7 +57,7 @@ act_Q_0:
 	ret
 act_A_0:
 	jmp load_A	
-	mov A,ACC	; variableA queda guardado en A
+	mov A, ACC	; variableA queda guardado en A
 	mov ACC, A_0	; Cargamos al DPTR A_0
 	mov DPTR, ACC
 	mov ACC, 0b0001	;Cargar 1 para hallar el A0
