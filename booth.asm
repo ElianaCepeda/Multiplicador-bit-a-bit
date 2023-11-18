@@ -115,4 +115,5 @@ AritSh:
 	mov [DPTR],ACC	;Q tiene guardado el nuevo Q con el right shift modificado
 	jmp inicio	
 fin: 
+	jmp load_A
 	hlt
