@@ -1,240 +1,116 @@
-	; Evalúa sí Acc es cero
-	jz load_a
-ind_1:
-	; Se carga la variable Q a registro A
-	mov ACC, Q
-    mov DPTR, ACC
+
+; Multiplicador Eliana Cepeda, Laura Garzón, Liseth Lozano
+
+variableA: 0b0 
+Q: 0b10000001 ; Multiplicador
+Q_1: 0b0
+M: 0b11111101; Multiplicando
+count: 0x8
+Q_0: 0b0
+A_0: 0b0
+inicio:
+	; Cargar count
+	mov ACC, count 
+	mov DPTR, ACC
 	mov ACC, [DPTR]
-	mov A, ACC
-	call fn_1 
+	jz HLT
+	jmp fnd_Q0_0
 
-	hlt ; Se detiene la ejecucion
-
-
-load_a:
-	; Se carga Variable A a Acc
-	mov ACC, variableA
-    mov DPTR, ACC
+load_M:
+	mov ACC, M 
+	mov DPTR, ACC
 	mov ACC, [DPTR]
-	jz ind_1
-	hlt
-
-fn_1:
-	; Se carga Variable count a Acc
-	mov ACC, count
-    mov DPTR, ACC
+	ret
+load_A:
+	mov ACC, varaibleA 
+	mov DPTR, ACC
 	mov ACC, [DPTR]
-	ret ;retorna al punto donde se ejecutó CALL CTE
-
-; Multiplicador
-
-INIT:
-load_Q: MOV ACC, CTE 
-Q #Cargar Q que será el multiplicando
-MOV DPTR, ACC
-MOV ACC, [DPTR]
-MOV A, ACC #Mover lo que está en ACC (Q) al registro A
-fnd_LSB: MOV ACC, CTE
-0x01 #Cargar 1 para hallar el LSB
-AND ACC, A #AND ENTRE A Y ACC para obtener 1 o 0 dependiendo del 
-caso
-MOV A, ACC #EL LSB SE MUEVE A REGISTRO A
-Load_lSB: MOV ACC, CTE
-LSB #se carga la direccion de LSB
-MOV DPTR, ACC
-MOV ACC, [DPTR] #Carga el [LSB] en ACC
-#verificar si es 10, 01, 11, 00
-Loop_0_1: MOV A, ACC #cargar LSB en A
-MOV ACC, CTE
-0x01 #cargar 1
-INV ACC #COMPLEMENTO A 1 DE 1
-MOV A, ACC #COMPLENTO 1 DE 1 EN REGISTRO DE A
-MOV ACC, CTE
-0x01
-ADD ACC, A #COMPLEMENTO 2 DE 1
-MOV A, ACC # COMPLEMENTO A 2 EN A REGISTER
-MOV ACC, CTE
-LSB #se carga la direccion de LSB
-MOV DPTR, ACC
-MOV ACC, [DPTR] #Carga el [LSb] en ACC
-ADD ACC, A #EN ACC LSB-1 
-JZ CTE
-Q1 #SI ACC ES 1
-JMP CTE
-Q0 #SI ACC ES 0
-//verificar si es 10
-Q1: MOV ACC, CTE
-0x01 #cargar 1
-INV ACC #COMPLEMENTO A 1 DE 1
-MOV A, ACC #COMPLENTO 1 DE 1 EN REGISTRO DE A
-MOV ACC, CTE
-0x01
-ADD ACC, A #COMPLEMENTO 2 DE 1
-MOV A, ACC # COMPLEMENTO A 2 EN A REGISTER
-MOV ACC, CTE
-0x01
-ADD ACC, A #COMPLEMENTO 2 DE 1
-MOV A, ACC # COMPLEMENTO A 2 EN A REGISTER
-ADD ACC, A
-MOV ACC, CTE
-QLSB #se carga la direccion de LSB
-MOV DPTR, ACC
-MOV ACC, [DPTR] #Carga el [LSB] en ACC
-MOV A, ACC
-ADD ACC, A #ACC QLSB - 1
-JZ CTE #VERIFICA SI ACC ES 0
-ARITH_SHIFT
-JMP CTE #VERIFIQUE SI ES 1
-UNOCERO
-//VERIFICAR SI ES 01
-Load_Q: MOV ACC, CTE 
-Q #CARGAMOS Q QUIEN SERA EL MULTIPLICANDO
-MOV DPTR, ACC
-MOV ACC,[DPTR]
-MOV A, ACC #Q QUIEN ESTABA EN EL ACUMULADOR SE MUEVE A 
-REGISTRO A
-fnd_LSB: MOV ACC, CTE
-0x01 #CARGAR 1 PARA HALLAR EL LSB
-AND ACC, A #AND ENTRE A Y ACC para obtener 1 o 0 dependiendo del 
-caso
-MOV A, ACC #EL LSB SE MUEVE A REGISTRO A
-Load_lSB: MOV ACC, CTE
-LSB #se carga la direccion de LSB
-MOV DPTR, ACC
-MOV ACC, [DPTR] #Carga el [LSB] en ACC
-#verificar si es 10, 01, 11, 00
-Loop_0_1: MOV A, ACC #cargar LSB en A
-MOV ACC, CTE
-0x01 #cargar 1
-INV ACC #COMPLEMENTO A 1 DE 1
-MOV A, ACC #COMPLENTO 1 DE 1 EN REGISTRO DE A
-MOV ACC, CTE
-0x01
-ADD ACC, A #COMPLEMENTO 2 DE 1
-MOV A, ACC # COMPLEMENTO A 2 EN A REGISTER
-MOV ACC, CTE
-LSB #se carga la direccion de LSB
-MOV DPTR, ACC
-MOV ACC, [DPTR] #Carga el [LSB] en ACC
-ADD ACC, A #EN ACC LSB-1 
-JZ CTE
-Q1 #SI ACC ES 1
-JMP CTE
-Q0 #SI ACC ES 0
-//verificar si es 10
-Q1: MOV ACC, CTE
-0x01 #cargar 1
-INV ACC #COMPLEMENTO A 1 DE 1
-MOV A, ACC #COMPLENTO 1 DE 1 EN REGISTRO DE A
-MOV ACC, CTE
-0x01
-ADD ACC, A #COMPLEMENTO 2 DE 1
-MOV A, ACC # COMPLEMENTO A 2 EN A REGISTER
-MOV ACC, CTE
-0x01
-ADD ACC, A #COMPLEMENTO 2 DE 1
-MOV A, ACC # COMPLEMENTO A 2 EN A REGISTER
-ADD ACC, A
-MOV ACC, CTE
-Q1 #se carga la direccion de LSB
-MOV DPTR, ACC
-MOV ACC, [DPTR] #Carga el [Q1] en ACC
-MOV A, ACC
-MOV ACC, CTE 
-VQ1 #CARGAMOS Q-1 
-MOV DPTR, ACC
-ADD ACC, A #ACC Q1 - 1
-MOV ACC,[DPTR]
-JZ CTE #VERIFICA SI ACC ES 0
-ARITH_SHIFT
-JMP CTE #VERIFIQUE SI ES 1
-UNOCERO
-//VERIFICAR SI ES 01
-Q0: MOV ACC, CTE
-Q0
-MOV DPTR, ACC 
-MOV ACC, [DTPR] #CARGAR [Q0]
-Inv ACC #COMPLEMTO A UNO DE Q0
-MOV A, ACC
-MOV ACC, CT0X01 #CARGAR EL UNO
-ADD ACC, A #ACC -Q0+1 PARA COMPLENTO A DOS
-MOV ACC, CTE 
-VQ1 #CARGAMOS Q-1 
-MOV DPTR, ACC
-ADD ACC, A #ACC Q1 - 1
-MOV ACC,[DPTR]
-JZ CTE
-CEROUNO #SI ES 0 HAGA LAS OPERCACIONES 
-CORRESPONDIENTES DE 01
-JMP CTE
-ARITH_SHIFT #SI NO ES 0 SALTE Y EJECUTE
-UN0CERO: MOV ACC, CTE
-M
-MOV DPTR, ACC 
-MOV ACC, [DPTR] #OBTENEMOS EL VALOR DEL DPTR [M]
-INV ACc #comoplement a uno de M
-MOV A, ACC #COMPLENTO A UNO EN REGISTRO A
-MOV ACC, CTE
-0x01 #LOAD 1
-ADD ACC, A #COMPLEMENTO A DOS EN ACC
-MOV A, ACC #EN A COMPLEMENTO A DOS
-MOV ACC, CTE
-X
-MOV DPTR, ACC #LOAD X
-ADD ACC, A #X-M EN ACC
-MOV [DPTR], ACC #EL RESULTADO DE LA RESTA EN EL VALOR DE 
-X
-JMP CTE 
-ARITH_SHIFT
-CEROUNO:
-load M: MOV ACC, CTE 
-M
-MOV DPTR, ACC
-MOV ACC, [DPTR]
-MOV A, ACC
-load X: MOV ACC, CTE 
-X
-MOV DPTR, ACC
-MOV ACC, [DPTR]
-ADD ACC, A
-MOV [DPTR], ACC #X=X+M
-JMP CTE 
-ARITH_SHIFT
-ARITH_SHIFT:
-load X: MOV ACC, CTE 
-X
-MOV DPTR, ACC
-MOV ACC, [DPTR]
-SAR ACC, CTE
-1
-MOV [DPTR], ACC #la variable X se dezplazó 1 a la derecha y se 
-volvio a guardar en X
-load VQ: MOV ACC, CTE 
-VQ
-MOV DPTR, ACC
-MOV ACC, [DPTR]
-SAR ACC, CTE
-1
-MOV [DPTR], ACC #la variable VQ se dezplazó 1 a la derecha y se 
-volvio a guardar en VQ
-load VQ1: MOV ACC, CTE 
-VQ1
-MOV DPTR, ACC
-MOV ACC, [DPTR]
-SAR ACC, CTE
-1
-MOV [DPTR], ACC #la varieble VQ1 se dezplazó 1 a la derecha y se 
-volvio a guardar en VQ1
-load CONT: MOV ACC, CTE 
-CONT
-MOV DPTR, ACC
-MOV ACC, [DPTR]
-MOV A, ACC
-MOV ACC, CTE
-0x1111 #complemtento a 2 de 1
-ADD ACC, A
-MOV [DPTR], ACC; A contador se le restó 1
-JZ CTE
-HALT
-JMP CTE
-INI
+	ret
+load_Q: 		;Cargar Q que será el multiplicador
+	mov ACC, Q 
+	mov DPTR, ACC
+	mov ACC, [DPTR] 
+	ret
+load_Q_1:
+	mov ACC, Q_1
+	mov DPTR, ACC
+	mov ACC, [DPTR] 
+	ret
+load_Q_0:
+	mov ACC, Q_0
+	mov DPTR, ACC
+	mov ACC, [DPTR] 
+	ret
+load_A_0:
+	mov ACC, A_0
+	mov DPTR, ACC
+	mov ACC, [DPTR] 
+	ret
+act_Q_0:
+	jmp load_Q	
+	mov A,ACC	; Q queda guardado en A
+	mov ACC, Q_0	; Cargamos al DPTR Q_0
+	mov DPTR, ACC
+	mov ACC, 0b0001	;Cargar 1 para hallar el Q0
+	and ACC, A	; And para determinar si el bit menos significacito es 1 o 0
+	mov [DPTR],ACC	;queda actualizado Q_0 
+	ret
+act_A_0:
+	jmp load_A	
+	mov A,ACC	; variableA queda guardado en A
+	mov ACC, A_0	; Cargamos al DPTR A_0
+	mov DPTR, ACC
+	mov ACC, 0b0001	;Cargar 1 para hallar el A0
+	and ACC, A	; And para determinar si el bit menos significacito es 1 o 0
+	mov [DPTR],ACC	;queda actualizado A_0 
+	ret
+fnd_Q0_0: 
+	jmp act_Q_0	
+	jz fnd_Q_1_1
+	jmp fnd_Q_1_0
+fnd_Q_1_1:
+	jmp load_Q_1
+	jz SAR		; evalua si q1 es 0 y ya hemos verificado de q0 es 0, si q1 es 0 se deben hacer los shift rigth de lo contrario se hace A+M
+	jmp A+M
+fnd_Q_1_0:
+	jmp load_Q_1
+	jz A-M		; evalua si q1 es 0 y ya hemos verificado de q0 es 1, si es 0 se debe hacer A-M de lo contrario se hacen los shift rigth
+	jmp SAR
+A+M:
+	jmp load_M
+	mov A,ACC
+	jmp load_A
+	add ACC,A	
+	mov [DPTR],ACC	;A=A+M
+	jmp SAR
+A-M:
+	jmp load_M
+	inv ACC
+	mov A,ACC
+	mov ACC, 0b0001
+	add ACC,A	;C2 de M en Acc
+	mov A,ACC	;C2 de M en registro A
+	jmp load_A
+	add ACC,A	
+	mov [DPTR],ACC	;A=A-M
+	jmp SAR
+SAR:
+	jmp act_A_0
+	mov A,ACC
+	jmp load_A
+	rsh ACC, 0b0001
+	and ACC,A
+	mov [DPTR],ACC	;Arithmetic Right Shift de A queda guardado en A
+	jmp act_Q_0
+	mov A,ACC
+	jmp load_Q_1
+	mov ACC,A
+	mov [DPTR],ACC	;Queda cargado Q0 en Q-1
+	jmp load_A_0
+	lsh ACC, 0x3
+	mov A,ACC
+	jmp load_Q
+	rsh ACC,0b0001	;se hace el logical rigth shift de Q
+	and ACC,A	;A Q se le pone como bit mas significativo A0
+	mov [DPTR],ACC	;Q tiene guardado el nuevo Q con el right shift modificado
+	jmp inicio	
