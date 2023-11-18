@@ -141,4 +141,4 @@ AritSh:
 	jmp inicio	
 fin: 
 	jmp load_A
-	hlt
+	halt
