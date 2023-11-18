@@ -13,7 +13,7 @@ inicio:
 	mov ACC, count 
 	mov DPTR, ACC
 	mov ACC, [DPTR]
-	jz HLT
+	jz 0Xff		; se mueve al hlt
 	jmp fnd_Q0_0
 
 load_M:
