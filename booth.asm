@@ -70,19 +70,19 @@ fnd_Q0_0:
 	jmp fnd_Q_1_0
 fnd_Q_1_1:
 	jmp load_Q_1
-	jz SAR		; evalua si q1 es 0 y ya hemos verificado de q0 es 0, si q1 es 0 se deben hacer los shift rigth de lo contrario se hace A+M
+	jz AritSh		; evalua si q1 es 0 y ya hemos verificado de q0 es 0, si q1 es 0 se deben hacer los shift rigth de lo contrario se hace A+M
 	jmp A+M
 fnd_Q_1_0:
 	jmp load_Q_1
 	jz A-M		; evalua si q1 es 0 y ya hemos verificado de q0 es 1, si es 0 se debe hacer A-M de lo contrario se hacen los shift rigth
-	jmp SAR
+	jmp AritSh
 A+M:
 	jmp load_M
 	mov A,ACC
 	jmp load_A
 	add ACC,A	
 	mov [DPTR],ACC	;A=A+M
-	jmp SAR
+	jmp AritSh
 A-M:
 	jmp load_M
 	inv ACC
@@ -93,8 +93,8 @@ A-M:
 	jmp load_A
 	add ACC,A	
 	mov [DPTR],ACC	;A=A-M
-	jmp SAR
-SAR:
+	jmp AritSh
+AritSh:
 	jmp act_A_0
 	mov A,ACC
 	jmp load_A
