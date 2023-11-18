@@ -6,7 +6,6 @@ Q: 0b10000001 ; Multiplicador
 Q_1: 0b0
 M: 0b11111101; Multiplicando
 count: 0x8
-Q_0: 0b0
 inicio:
 	; Cargar count
 	mov ACC, count 
@@ -35,19 +34,14 @@ load_Q_1:
 	mov DPTR, ACC
 	mov ACC, [DPTR] 
 	ret
-load_Q_0:
-	mov ACC, Q_0
-	mov DPTR, ACC
-	mov ACC, [DPTR] 
-	ret
 act_Q_0:
 	jmp load_Q	
 	mov A, ACC	; Q queda guardado en A
-	mov ACC, Q_0	; Cargamos al DPTR Q_0
+	mov ACC, Q_1	; Cargamos al DPTR Q_0
 	mov DPTR, ACC
 	mov ACC, 0b0001	;Cargar 1 para hallar el Q0
 	and ACC, A	; And para determinar si el bit menos significacito es 1 o 0
-	mov [DPTR], ACC	;queda actualizado Q_0 
+	mov [DPTR], ACC	;queda actualizado Q_0 en Q1
 	ret
 act_A_0:
 	jmp load_A	
@@ -59,7 +53,10 @@ act_A_0:
 	mov [DPTR], ACC	;queda actualizado A_0 
 	ret
 fnd_Q0_0: 
-	jmp act_Q_0	
+	jmp load_Q	
+	mov A, ACC	; Q queda guardado en A
+	mov ACC, 0b0001	;Cargar 1 para hallar el Q0
+	and ACC, A	; And para determinar si el bit menos significacito es 1 o 0	
 	jz fnd_Q_1_1
 	jmp fnd_Q_1_0
 fnd_Q_1_1:
@@ -88,26 +85,50 @@ A-M:
 	add ACC, A	
 	mov [DPTR], ACC	;A=A-M
 	jmp AritSh
-AritSh:
-	jmp act_Q_0
-	jmp act_A_0	;en Q_1 queda guardado A_0 temporalmente
-	mov A, ACC
-	jmp load_A
-	rsh ACC, 0b0001
-	and ACC, A
-	mov [DPTR], ACC	;Arithmetic Right Shift de A queda guardado en A
+addf:
 	jmp load_Q_1
-	lsh ACC, 0x7
+	lsh ACC, 0X7
 	mov A, ACC
 	jmp load_Q
-	rsh ACC, 0b0001	;se hace el logical rigth shift de Q
-	and ACC, A	;A Q se le pone como bit mas significativo A0
-	mov [DPTR], ACC	;Q tiene guardado el nuevo Q con el right shift modificado
-	jmp load_Q_0
-	mov A, ACC
+	add ACC, A
+	mov [DPTR], ACC
+	ret
+andf:
 	jmp load_Q_1
-	mov ACC, A
-	mov [DPTR], ACC	;Queda cargado Q0 en Q-1
+	lsh ACC, 0X7
+	mov A, ACC
+	jmp load_Q
+	and ACC, A
+	mov [DPTR], ACC
+	ret	
+AritSh:
+	jmp act_A_0	;en Q_1 queda guardado A_0 temporalmente
+	jmp load_A
+	mov ACC, 0b1000
+	mov A, ACC
+	jmp load_A
+	rsh ACC, 0x1
+	add ACC, A
+	mov [DPTR], ACC	;Arithmetic Right Shift de A queda guardado en A
+
+	jmp load_Q
+	rsh ACC, 0X1
+	mov A, ACC
+	mov ACC, 0b1000
+	and ACC, A
+	jz addf
+	andf
+
+	jmp act_Q_0	;Q0 queda guardado en q1
+
+	jmp load_Q
+	mov ACC, 0b1000
+	mov A, ACC
+	jmp load_Q
+	rsh ACC, 0x1
+	add ACC, A
+	mov [DPTR], ACC	;Arithmetic Right Shift de A queda guardado en A
+
 	jmp inicio	
 fin: 
 	jmp load_A
