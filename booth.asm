@@ -117,7 +117,7 @@ AritSh:
 	mov ACC, 0b1000
 	and ACC, A
 	jz addf
-	andf
+	jmp andf
 
 	jmp act_Q_0	;Q0 queda guardado en q1
 
