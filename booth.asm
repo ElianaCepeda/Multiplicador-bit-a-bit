@@ -140,5 +140,4 @@ AritSh:
 	mov [DPTR], ACC
 	jmp inicio	
 finc:
-	jmp load_A
 	hlt
