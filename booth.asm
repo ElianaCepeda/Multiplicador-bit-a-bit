@@ -129,14 +129,19 @@ AritSh:
 	add ACC, A
 	mov [DPTR], ACC	;Arithmetic Right Shift de A queda guardado en A
 
-	mov ACC, count
-	mov DPTR, ACC
-	mov ACC, [DPTR]
-	mov A, ACC
+	
+	
 	mov ACC, 0X1
 	inv ACC
 	add ACC, A
 	mov [DPTR], ACC
+	mov A, ACC
+	mov ACC, 0b0001
+	add ACC, A	;C2 de M en Acc
+	mov A, ACC	;C2 de M en registro A
+	mov ACC, count
+	mov DPTR, ACC
+	mov ACC, [DPTR]
 	jmp inicio	
 fin: 
 	jmp load_A
