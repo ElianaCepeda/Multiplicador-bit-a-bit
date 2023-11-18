@@ -13,7 +13,7 @@ inicio:
 	mov ACC, count 
 	mov DPTR, ACC
 	mov ACC, [DPTR]
-	jz 0Xff		; se mueve al hlt
+	jz fin		; se termina el programa
 	jmp fnd_Q0_0
 
 load_M:
@@ -114,3 +114,5 @@ AritSh:
 	and ACC,A	;A Q se le pone como bit mas significativo A0
 	mov [DPTR],ACC	;Q tiene guardado el nuevo Q con el right shift modificado
 	jmp inicio	
+fin: 
+	hlt
