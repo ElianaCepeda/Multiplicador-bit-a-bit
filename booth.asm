@@ -1,9 +1,9 @@
 
 ; Multiplicador Eliana Cepeda, Laura Garzón, Liseth Lozano
 
-variableA: 0b0 
+variableA: 0b00000000 
 Q: 0b10000001 ; Multiplicador
-Q_1: 0b0
+Q_1: 0b00000000
 M: 0b11111101; Multiplicando
 count: 0x8
 inicio:
