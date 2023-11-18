@@ -11,7 +11,7 @@ inicio:
 	mov ACC, count 
 	mov DPTR, ACC
 	mov ACC, [DPTR]
-	jz fin		; se termina el programa
+	jz halt		; se termina el programa
 	jmp fnd_Q0_0
 
 load_M:
@@ -139,6 +139,4 @@ AritSh:
 	add ACC, A
 	mov [DPTR], ACC
 	jmp inicio	
-fin: 
-	jmp load_A
-	halt
+
