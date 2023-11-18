@@ -7,7 +7,6 @@ Q_1: 0b0
 M: 0b11111101; Multiplicando
 count: 0x8
 Q_0: 0b0
-A_0: 0b0
 inicio:
 	; Cargar count
 	mov ACC, count 
@@ -41,11 +40,6 @@ load_Q_0:
 	mov DPTR, ACC
 	mov ACC, [DPTR] 
 	ret
-load_A_0:
-	mov ACC, A_0
-	mov DPTR, ACC
-	mov ACC, [DPTR] 
-	ret
 act_Q_0:
 	jmp load_Q	
 	mov A, ACC	; Q queda guardado en A
@@ -58,7 +52,7 @@ act_Q_0:
 act_A_0:
 	jmp load_A	
 	mov A, ACC	; variableA queda guardado en A
-	mov ACC, A_0	; Cargamos al DPTR A_0
+	mov ACC, Q_1	; Cargamos al DPTR A_0
 	mov DPTR, ACC
 	mov ACC, 0b0001	;Cargar 1 para hallar el A0
 	and ACC, A	; And para determinar si el bit menos significacito es 1 o 0
@@ -95,24 +89,25 @@ A-M:
 	mov [DPTR], ACC	;A=A-M
 	jmp AritSh
 AritSh:
-	jmp act_A_0
+	jmp act_Q_0
+	jmp act_A_0	;en Q_1 queda guardado A_0 temporalmente
 	mov A, ACC
 	jmp load_A
 	rsh ACC, 0b0001
 	and ACC, A
 	mov [DPTR], ACC	;Arithmetic Right Shift de A queda guardado en A
-	jmp act_Q_0
-	mov A, ACC
 	jmp load_Q_1
-	mov ACC, A
-	mov [DPTR], ACC	;Queda cargado Q0 en Q-1
-	jmp load_A_0
 	lsh ACC, 0x3
 	mov A, ACC
 	jmp load_Q
 	rsh ACC, 0b0001	;se hace el logical rigth shift de Q
 	and ACC, A	;A Q se le pone como bit mas significativo A0
 	mov [DPTR], ACC	;Q tiene guardado el nuevo Q con el right shift modificado
+	jmp load_Q_0
+	mov A, ACC
+	jmp load_Q_1
+	mov ACC, A
+	mov [DPTR], ACC	;Queda cargado Q0 en Q-1
 	jmp inicio	
 fin: 
 	jmp load_A
