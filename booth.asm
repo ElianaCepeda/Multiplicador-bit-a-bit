@@ -97,7 +97,7 @@ AritSh:
 	and ACC, A
 	mov [DPTR], ACC	;Arithmetic Right Shift de A queda guardado en A
 	jmp load_Q_1
-	lsh ACC, 0x3
+	lsh ACC, 0x7
 	mov A, ACC
 	jmp load_Q
 	rsh ACC, 0b0001	;se hace el logical rigth shift de Q
