@@ -136,6 +136,8 @@ AritSh:
 	mov ACC, count
 	mov DPTR, ACC
 	mov ACC, [DPTR]
+	add ACC, A
+	mov [DPTR], ACC
 	jmp inicio	
 fin: 
 	jmp load_A
