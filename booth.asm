@@ -139,7 +139,7 @@ AritSh:
 	jz addf
 	jmp fand
 
-	jmp act_Q_0	;Q0 queda guardado en q1
+	jmp act_Q_1	
 
 	jmp load_Q
 	mov ACC, 0b1000
