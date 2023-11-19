@@ -122,7 +122,7 @@ fand:
 	mov [DPTR], ACC
 	ret	
 AritSh:
-	jmp act_A_0	;en Q_1 queda guardado A_0 temporalmente
+	jmp act_A_1	;en Q_1 queda guardado A_1 temporalmente
 	jmp load_A
 	mov ACC, 0b1000
 	mov A, ACC
