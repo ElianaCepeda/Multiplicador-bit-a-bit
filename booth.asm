@@ -39,7 +39,16 @@ act_Q_0:
 	mov A, ACC	; Q queda guardado en A
 	mov ACC, Q_1	; Cargamos al DPTR Q_0
 	mov DPTR, ACC
-	mov ACC, 0b0001	;Cargar 1 para hallar el Q0
+	mov ACC, 0b0010	;Cargar 1 para hallar el Q0
+	and ACC, A	; And para determinar si el bit menos significacito es 1 o 0
+	mov [DPTR], ACC	;queda actualizado Q_0 en Q1
+	ret
+
+act_Q_1:
+	jmp load_Q	
+	mov A, ACC	; Q queda guardado en A
+	mov ACC, Q_1	; Cargamos al DPTR Q_1
+	mov ACC, 0b0001	;Cargar 1 para hallar el Q1
 	and ACC, A	; And para determinar si el bit menos significacito es 1 o 0
 	mov [DPTR], ACC	;queda actualizado Q_0 en Q1
 	ret
@@ -60,10 +69,12 @@ fnd_Q0_0:
 	jz fnd_Q_1_1
 	jmp fnd_Q_1_0
 fnd_Q_1_1:
+	jmp act_Q_1
 	jmp load_Q_1
 	jz AritSh		; evalua si q1 es 0 y ya hemos verificado de q0 es 0, si q1 es 0 se deben hacer los shift rigth de lo contrario se hace A+M
 	jmp A+M
 fnd_Q_1_0:
+	jmp act_Q_1
 	jmp load_Q_1
 	jz A-M		; evalua si q1 es 0 y ya hemos verificado de q0 es 1, si es 0 se debe hacer A-M de lo contrario se hacen los shift rigth
 	jmp AritSh
