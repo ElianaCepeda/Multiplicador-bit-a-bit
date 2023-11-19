@@ -57,14 +57,14 @@ act_A_0:
 	mov A, ACC	; variableA queda guardado en A
 	mov ACC, Q_1	; Cargamos al DPTR A_0
 	mov DPTR, ACC
-	mov ACC, 0b0001	;Cargar 1 para hallar el A0
+	mov ACC, 0b0010	;Cargar 1 para hallar el A0
 	and ACC, A	; And para determinar si el bit menos significacito es 1 o 0
 	mov [DPTR], ACC	;queda actualizado A_0 
 	ret
 fnd_Q0_0: 
 	jmp load_Q	
 	mov A, ACC	; Q queda guardado en A
-	mov ACC, 0b0001	;Cargar 1 para hallar el Q0
+	mov ACC, 0b0010	;Cargar 1 para hallar el Q0
 	and ACC, A	; And para determinar si el bit menos significacito es 1 o 0	
 	jz fnd_Q_1_1
 	jmp fnd_Q_1_0
