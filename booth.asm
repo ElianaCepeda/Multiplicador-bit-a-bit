@@ -61,6 +61,15 @@ act_A_0:
 	and ACC, A	; And para determinar si el bit menos significacito es 1 o 0
 	mov [DPTR], ACC	;queda actualizado A_0 
 	ret
+act_A_1:
+	jmp load_A	
+	mov A, ACC	; variableA queda guardado en A
+	mov ACC, Q_1	; Cargamos al DPTR A_0
+	mov DPTR, ACC
+	mov ACC, 0b0001	;Cargar 1 para hallar el A0
+	and ACC, A	; And para determinar si el bit menos significacito es 1 o 0
+	mov [DPTR], ACC	;queda actualizado A_0 
+	ret
 fnd_Q0_0: 
 	jmp load_Q	
 	mov A, ACC	; Q queda guardado en A
