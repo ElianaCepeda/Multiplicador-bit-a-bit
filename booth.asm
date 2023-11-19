@@ -107,7 +107,7 @@ A-M:
 	jmp AritSh
 addf:
 	jmp load_Q_1
-	lsh ACC, 0X1
+	lsh ACC, 0X3
 	mov A, ACC
 	jmp load_Q
 	add ACC, A
@@ -115,7 +115,7 @@ addf:
 	ret
 fand:
 	jmp load_Q_1
-	lsh ACC, 0X1
+	lsh ACC, 0X3
 	mov A, ACC
 	jmp load_Q
 	and ACC, A
